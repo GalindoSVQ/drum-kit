@@ -17,12 +17,6 @@ function enableVisualEffect(key) {
   element.classList.add("playing");
 }
 
-function disableVisualEffect(e) {
-  if (e.propertyName !== "transform") return;
-
-  this.classList.remove("playing");
-}
-
 window.addEventListener("keydown", (e) => {
   const key = e.key.toUpperCase();
 
@@ -39,7 +33,8 @@ window.addEventListener("touchstart", (e) => {
   enableVisualEffect(key);
 });
 
-allKeys &&
-  allKeys.forEach((key) =>
-    key.addEventListener("transitionend", disableVisualEffect)
-  );
+allKeys.forEach((key) =>
+  key.addEventListener("transitionend", (event) =>
+    event.target.classList.remove("playing")
+  )
+);
